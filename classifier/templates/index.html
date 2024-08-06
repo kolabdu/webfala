@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>URL Classifier</title>
+  </head>
+  <body>
+    <h1>URL Classifier</h1>
+    <form method="post" action="/predict/">
+      {% csrf_token %}
+      <label for="url_input">Enter URL:</label>
+      <input type="text" id="url_input" name="url_input" required />
+      <button type="submit">Classify URL</button>
+    </form>
+    {% if prediction %}
+    <h2>Prediction: {{ prediction }}</h2>
+    {% endif %}
+  </body>
+</html>
