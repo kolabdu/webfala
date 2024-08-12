@@ -1,12 +1,12 @@
 import pickle
 
-# def clean_url(url):
-#     prefixes = ['http://www.', 'https://www.', 'http://', 'https://', 'www.']
-#     for prefix in prefixes:
-#         if url.startswith(prefix):
-#             url = url.replace(prefix, '', 1)
-#             break
-#     return url
+def clean_url(url):
+    prefixes = ['http://www.', 'https://www.', 'http://', 'https://', 'www.']
+    for prefix in prefixes:
+        if url.startswith(prefix):
+            url = url.replace(prefix, '', 1)
+            break
+    return cleaned_url
 
 def tokenize(cleaned_url):
     tkns_BySlash = cleaned_url.split('/')
