@@ -8,20 +8,20 @@ def clean_url(url):
             break
     return cleaned_url
 
-def tokenize(cleaned_url):
-    tkns_BySlash = cleaned_url.split('/')
-    total_Tokens = []
-    for i in tkns_BySlash:
-        tokens = i.split('-')
-        tkns_ByDot = []
-        for token in tokens:
-            temp_Tokens = token.split('.')
-            tkns_ByDot.extend(temp_Tokens)
-        total_Tokens.extend(tokens + tkns_ByDot)
-    total_Tokens = list(set(total_Tokens))
-    if 'com' in total_Tokens:
-        total_Tokens.remove('com')
-    return cleaned_url
+# def tokenize(cleaned_url):
+#     tkns_BySlash = cleaned_url.split('/')
+#     total_Tokens = []
+#     for i in tkns_BySlash:
+#         tokens = i.split('-')
+#         tkns_ByDot = []
+#         for token in tokens:
+#             temp_Tokens = token.split('.')
+#             tkns_ByDot.extend(temp_Tokens)
+#         total_Tokens.extend(tokens + tkns_ByDot)
+#     total_Tokens = list(set(total_Tokens))
+#     if 'com' in total_Tokens:
+#         total_Tokens.remove('com')
+#     return cleaned_url
 
 def load_model_and_vectorizer():
     with open('classifier/logit_model.pkl', 'rb') as file:
