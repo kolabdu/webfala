@@ -11,12 +11,12 @@ def index(request):
 def predict_category(request):
     if request.method == 'POST':
         user_input = request.POST.get('url_input')
-        cleaned_url = [clean_url(user_input)]
+        cleaned_input = [clean_url(user_input)]
         # cleaned_input = [tokenize(cleaned_url)]
 
         model, vectorizer = load_model_and_vectorizer()
         try:
-            prediction = predict_url_category(cleaned_url, model, vectorizer)
+            prediction = predict_url_category(cleaned_input, model, vectorizer)
         except Exception as e:
             return HttpResponse("An error occurred: {}".format(e), status=500)
         return render(request, 'index.html', {'prediction': prediction})
