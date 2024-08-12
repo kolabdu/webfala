@@ -22,7 +22,7 @@ def clean_url(url):
 #     if 'com' in total_Tokens:
 #         total_Tokens.remove('com')
 #     return cleaned_url
-print(cleaned_url)
+
 
 
 def load_model_and_vectorizer():
