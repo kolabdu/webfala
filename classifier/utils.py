@@ -8,8 +8,8 @@ def clean_url(url):
             break
     return url
 
-def tokenize(cleaned_url):
-    tkns_BySlash = cleaned_url.split('/')
+def tokenize(url):
+    tkns_BySlash = url.split('/')
     total_Tokens = []
     for i in tkns_BySlash:
         tokens = i.split('-')
