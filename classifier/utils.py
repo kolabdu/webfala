@@ -132,17 +132,17 @@ def tokenize(f):
         total_Tokens.remove('com')    # removing .com since it occurs a lot of times and it should not be included in our features
     return total_Tokens
 
-# Initialize TfidfVectorizer with custom tokenizer
-# vectorizer = TfidfVectorizer(tokenizer=makeTokens)
 
 
 
 
 def load_model_and_vectorizer():
-    with open('logit_model.pkl', 'rb') as file:
+    with open('classifier/logit_model.pkl', 'rb') as file:
         model = pickle.load(file)
-    with open('tfidf_vectorizer.pkl', 'rb') as f:
-        vectorizer = pickle.load(f)
+
+    with open('classifier/vectorizer.pkl', 'rb') as file:
+        vectorizer = pickle.load(file)
+        
     return model, vectorizer
 
 def predict_url_category(url, model,vectorizer):
