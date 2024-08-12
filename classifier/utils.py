@@ -22,7 +22,7 @@ def tokenize(cleaned_url):
     if 'com' in total_Tokens:
         total_Tokens.remove('com')
     return cleaned_url
-
+print(cleaned_url)
 def load_model_and_vectorizer():
     with open('classifier/logit_model.pkl', 'rb') as file:
         model = pickle.load(file)
