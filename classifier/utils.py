@@ -4,25 +4,27 @@ def clean_url(url):
     prefixes = ['http://www.', 'https://www.', 'http://', 'https://', 'www.']
     for prefix in prefixes:
         if url.startswith(prefix):
-            url = url.replace(prefix, '', 1)
+            cleaned_url = url.replace(prefix, '', 1)
             break
-    return url
-
-def tokenize(url):
-    tkns_BySlash = url.split('/')
-    total_Tokens = []
-    for i in tkns_BySlash:
-        tokens = i.split('-')
-        tkns_ByDot = []
-        for token in tokens:
-            temp_Tokens = token.split('.')
-            tkns_ByDot.extend(temp_Tokens)
-        total_Tokens.extend(tokens + tkns_ByDot)
-    total_Tokens = list(set(total_Tokens))
-    if 'com' in total_Tokens:
-        total_Tokens.remove('com')
     return cleaned_url
+
+# def tokenize(cleaned_url):
+#     tkns_BySlash = cleaned_url.split('/')
+#     total_Tokens = []
+#     for i in tkns_BySlash:
+#         tokens = i.split('-')
+#         tkns_ByDot = []
+#         for token in tokens:
+#             temp_Tokens = token.split('.')
+#             tkns_ByDot.extend(temp_Tokens)
+#         total_Tokens.extend(tokens + tkns_ByDot)
+#     total_Tokens = list(set(total_Tokens))
+#     if 'com' in total_Tokens:
+#         total_Tokens.remove('com')
+#     return cleaned_url
 print(cleaned_url)
+
+
 def load_model_and_vectorizer():
     with open('classifier/logit_model.pkl', 'rb') as file:
         model = pickle.load(file)
