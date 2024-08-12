@@ -11,7 +11,7 @@ def index(request):
 def predict_category(request):
     if request.method == 'POST':
         user_input = request.POST.get('url_input')
-        cleaned_url = clean_url(user_input)
+        cleaned_url = [clean_url(user_input)]
         # cleaned_input = [tokenize(cleaned_url)]
 
         model, vectorizer = load_model_and_vectorizer()
