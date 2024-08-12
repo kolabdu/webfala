@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render
-from .utils import load_model_and_vectorizer, predict_url_category
+from .utils import clean_url,load_model_and_vectorizer, predict_url_category
 
 def index(request):
     return render(request, 'index.html')
