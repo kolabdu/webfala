@@ -6,7 +6,7 @@ def clean_url(url):
         if url.startswith(prefix):
             url = url.replace(prefix, '', 1)
             break
-    return cleaned_url
+    return url
 
 def tokenize(cleaned_url):
     tkns_BySlash = cleaned_url.split('/')
