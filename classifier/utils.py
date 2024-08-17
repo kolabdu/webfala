@@ -44,6 +44,6 @@ def predict_url_category(url, model,vectorizer):
        
     prediction = model.predict(vectorizer.transform(url))
     if prediction == 'good':
-        return 'The URL is safe'
+        return f'The URL is safe with {proba.max().round(2)} % confidence'
     else:
-        return "URL APPEARS TO BE MALICIOUS"
+        return f"URL APPEARS TO BE MALICIOUS with {proba.max().round(2)} % confidence"
