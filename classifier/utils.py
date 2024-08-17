@@ -43,6 +43,7 @@ def load_model_and_vectorizer():
 def predict_url_category(url, model,vectorizer):
        
     prediction = model.predict(vectorizer.transform(url))
+    proba = model.predict_proba(vectorizer.transform(url))
     if prediction == 'good':
         return f'The URL is safe with {proba.max().round(2)} % confidence'
     else:
