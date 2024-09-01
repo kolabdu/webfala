@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}" />
+
+    <title>Video Player</title>
+    
+</head>
+<body>
+    <div class="relative w-[100%]">
+        <div id="video-container" class="relative w-full">
+            <img id="thumbnail" src="{% static 'images/Video.png' %}" alt="Thumbnail" class="h-full w-3/4 object-cover m-auto">
+            <button id="play-button" class="absolute md:h-16 md:w-16 h-10 w-10 bg-white rounded-full flex justify-center items-center top-2/4 left-2/4 z-10">
+                <img src="{% static 'images/Polygon 1.png' %}" alt="Play" class="md:h-10 md:w-10 h-6 w-6">
+            </button>
+        </div>
+        <video id="video" class="m-auto" width="1000" height="1000" controls style="display:none;">
+            <source src="{% static 'videos/video.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const playButton = document.getElementById('play-button');
+            const video = document.getElementById('video');
+            const videoContainer = document.getElementById('video-container');
+            const thumbnail = document.getElementById('thumbnail');
+            
+            playButton.addEventListener('click', function() {
+                thumbnail.style.display = 'none'; // Hide thumbnail
+                playButton.style.display = 'none'; // Hide play button
+                video.style.display = 'block'; // Show video
+                video.play(); // Play the video
+            });
+
+            video.addEventListener('pause', function() {
+                thumbnail.style.display = 'block'; // Show thumbnail when paused
+                playButton.style.display = 'block'; // Show play button when paused
+                video.style.display = 'none'; // Hide video when paused
+            });
+        });
+    </script>
+</body>
+</html>

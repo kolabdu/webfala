@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="text-white px-6 md:px-[90px] bg-[#E63946] py-[90px]">
+      <div class="">
+        <div class="flex text-[18px] md:px-20 flex-col py-8">
+          <div class="md:flex justify-between ">
+            <div class="flex flex-col md:gap-5 gap-1">
+              <h1 class=" text-bold" >QuickLinks</h1>
+              <ul class="footer-links">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'blog' %}">Blog</a></li>
+                <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                <li><a href="#">FAQs</a></li>
+              </ul>
+            </div>
+            <div class="flex flex-col md:gap-5 gap-1">
+              <h1 class=" text-bold">Legal Info</h1>
+              <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Cookie Policy</a></li>
+              </ul>
+            </div>
+            <div class="flex flex-col md:gap-5 gap-1">
+              <h1 class=" text-bold">Contact Info</h1>
+              <ul class="footer-links">
+                <li>
+                  <a href="mailto:webfalainitiative@gmail.com"
+                    >webfalainitiative@gmail.com</a
+                  >
+                </li>
+                <li><a href="tel:+234000000000">+234 000000000</a></li>
+                <li>12, Station Road, GRA, Ilorin</li>
+              </ul>
+            </div>
+            <div class="md:flex flex-col gap-6">
+            <h1 class="text-3xl">Subscribe</h1>
+            <form class="flex relative">
+              <input
+                placeholder=""
+                class="w-full outline-none pl-5 pr-32 text-sm text-black rounded-md h-[35px]"
+                type="text"
+              />
+              <button
+                class="bg-[#929292] absolute right-0 top-0 h-[35px] rounded-r px-4"
+              >
+                <img src="{% static 'images/path.png' %}" alt="Subscribe" />
+              </button>
+            </form>
+            <span>© 2024 PhishGuard. All rights reserved.</span>
+          </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="md:flex justify-between p-8 ">
+        <img src="{% static 'images/footer.png' %}" alt="Footer Image" />
+        <div class="flex gap-4">
+          <span class="text-sm">Terms</span>
+          <span class="text-sm">Privacy</span>
+          <span>
+            <img
+              class="h-2 w-2 mt-2"
+              src="{% static 'images/cookies.png' %}"
+              alt="Cookies"
+            />
+          </span>
+        </div>
+        <div class="flex gap-1">
+          <a href="https://www.linkedin.com">
+            <img src="{% static 'images/linkedin.png' %}" alt="LinkedIn" />
+          </a>
+          <a href="https://www.facebook.com">
+            <img src="{% static 'images/facebook.png' %}" alt="Facebook" />
+          </a>
+          <a href="https://www.twitter.com">
+            <img src="{% static 'images/twitter.png' %}" alt="Twitter" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

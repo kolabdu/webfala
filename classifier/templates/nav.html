@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar</title>
+    <link rel="stylesheet" href="{% static 'src/output.css' %}" />
+    <link rel="stylesheet" href="{% static 'src/input.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div
+      class="flex shadow-sm sticky md:top-0 z-50 bg-white justify-between py-4 px-10 md:px-8 md:py-4"
+    >
+      <a href="{% url 'index' %}">
+        <img
+          class="w-[200px] my-auto h-fit"
+          src="{% static 'images/nav.png' %}"
+          alt="Logo"
+        />
+      </a>
+      <div class="hidden md:flex gap-10 flex-col md:flex-row">
+        <!-- Desktop Menu -->
+        {% for nav in header_nav %}
+        <a href="{{ nav.path }}" class="hover:text-[#3296F6]"> {{ nav.name }} </a>
+        {% endfor %}
+      </div>
+      <div
+        onclick="toggleNav()"
+        class="my-auto font-bold text-2xl text-[#3296F6] md:hidden flex"
+      >
+        <span id="nav-toggle-icon">&#9776;</span>
+        <!-- Default icon (hamburger) -->
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <div
+      class="nav-menu absolute top-[-1000px] left-0 bg-primary text-white w-full duration-300 md:hidden"
+    >
+      {% for nav in header_nav %}
+      <a
+        href="{{ nav.path }}"
+        class="block py-4 px-6 hover:bg-gray-700"
+        onclick="toggleNav(false)"
+      >
+        {{ nav.name }}
+      </a>
+      {% endfor %}
+    </div>
+
+    <script>
+      let showNav = false;
+
+      function toggleNav(state) {
+        showNav = typeof state !== "undefined" ? state : !showNav;
+        document.querySelector(".nav-menu").style.top = showNav
+          ? "4rem"
+          : "-1000px";
+        document.getElementById("nav-toggle-icon").innerHTML = showNav
+          ? "&#10005;"
+          : "&#9776;";
+      }
+    </script>
+  </body>
+</html>

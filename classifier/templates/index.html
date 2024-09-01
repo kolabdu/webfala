@@ -1,10 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>URL Classifier</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'src/output.css' %}" />
+    <title>Document</title>
   </head>
   <body>
-    <h1>URL Classifier</h1>
+    <!-- <h1>URL Classifier</h1>
     <form method="post" action="/predict/">
       {% csrf_token %}
       <label for="url_input">Enter URL:</label>
@@ -13,6 +19,58 @@
     </form>
     {% if prediction %}
     <h2>Prediction: {{ prediction }}</h2>
-    {% endif %}
+    {% endif %} -->
+   <main>
+     {% include 'nav.html' %}
+    <div class="md:py-6 py-3">
+      
+      <div class="items-center justify-center h-fit flex flex-col p-6">
+        <h1
+          class="md:text-6xl text-3xl md:w-[1000px] w-full font-bold text-[#0969C3] text-center"
+        >
+          Stay Safe Online: Detect Phishing Links Instantly
+        </h1>
+        <p
+          class="text-[#424242] w-full md:flex md:w-[800px] my-10 items-center justify-center"
+        >
+          Protect yourself from cyber threats with our advanced phishing link
+          detection tool.
+        </p>
+        <div>
+          <form method="POST"  action="/predict/" class="flex flex-col justify-center items-center">
+          {% csrf_token %} 
+          {{ form.url_input }}
+          <!-- <textarea 
+            id="url_input" 
+            name="url_input"
+            cols="100"
+            rows="5"
+            placeholder="Please paste your link here"
+            class="h-full pt-3 pl-3 pr-6 md:pr-32 outline-none w-full border-2 border-light rounded-md resize-none"
+        ></textarea> -->
+          <button
+            class="bg-[#1B263B] text-white h-14 w-40 px-6 mt-4 rounded-md"
+          >
+            Check Now
+          </button>
+          
+        </form>
+        {% if prediction %}
+        <h2>Prediction: {{ prediction }}</h2>
+        {% endif %} 
+
+        </div>
+      </div>
+      <div class="flex flex-col gap-12">
+        <h1
+          class=" text-center text-5xl text-[#1B263B] mt-12"
+        >
+          How It Works
+        </h1>
+        {% include 'video.html' %}
+      </div>
+    </div>
+    {% include 'footer.html' %}
+    </main>
   </body>
 </html>
