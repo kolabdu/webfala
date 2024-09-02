@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Navbar</title>
     <link rel="stylesheet" href="{% static 'src/output.css' %}" />
-    <link rel="stylesheet" href="{% static 'src/input.css' %}">
+    <link rel="stylesheet" href="{% static 'src/input.css' %}" />
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
@@ -21,18 +21,44 @@
           alt="Logo"
         />
       </a>
-      <div class="hidden md:flex gap-10 flex-col md:flex-row">
+
+      <div class="hidden md:flex gap-10 items-center">
         <!-- Desktop Menu -->
         {% for nav in header_nav %}
-        <a href="{{ nav.path }}" class="hover:text-[#3296F6]"> {{ nav.name }} </a>
+        <a href="{{ nav.path }}" class="hover:text-[#3296F6]">
+          {{ nav.name }}
+        </a>
         {% endfor %}
+
+        <!-- Translation Dropdown -->
+        <div class="relative">
+          <div class="flex items-center border-0 p-2">
+            <img
+              src="{% static 'images/Vector.png' %}"
+              class="h-6 w-6 mr-1 pointer-events-none"
+              alt="Translation Icon"
+            />
+            <select
+              name="language"
+              id="language-selector"
+              onchange="changeLanguage()"
+              class="border-0 outline-none focus:ring-0 bg-transparent"
+            >
+              <option value="en">English</option>
+              <option value="ig">Igbo</option>
+              <option value="yo">Yoruba</option>
+              <option value="ha">Hausa</option>
+            </select>
+          </div>
+        </div>
       </div>
+
+      <!-- Hamburger Icon for Mobile -->
       <div
         onclick="toggleNav()"
         class="my-auto font-bold text-2xl text-[#3296F6] md:hidden flex"
       >
         <span id="nav-toggle-icon">&#9776;</span>
-        <!-- Default icon (hamburger) -->
       </div>
     </div>
 
@@ -49,6 +75,28 @@
         {{ nav.name }}
       </a>
       {% endfor %}
+
+      <!-- Mobile Translation Dropdown -->
+      <div class="block py-4 px-6">
+        <div class="flex items-center border-0 p-2">
+          <img
+            src="{% static 'images/Vector.png' %}"
+            class="h-4 w-4 mr-1 pointer-events-none"
+            alt="Translation Icon"
+          />
+          <select
+            name="language"
+            id="mobile-language-selector"
+            onchange="changeLanguage()"
+            class="border-0 outline-none focus:ring-0  text-black bg-transparent"
+          >
+            <option value="en">English</option>
+            <option value="ig">Igbo</option>
+            <option value="yo">Yoruba</option>
+            <option value="ha">Hausa</option>
+          </select>
+        </div>
+      </div>
     </div>
 
     <script>
@@ -62,6 +110,11 @@
         document.getElementById("nav-toggle-icon").innerHTML = showNav
           ? "&#10005;"
           : "&#9776;";
+      }
+
+      function changeLanguage() {
+        const language = document.getElementById("language-selector").value;
+      
       }
     </script>
   </body>
