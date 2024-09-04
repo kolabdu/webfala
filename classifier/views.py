@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .forms import MyForm
 from .utils import clean_url, load_model_and_vectorizer, predict_url_category
 
-
+recent_searches = []
 
 def index(request):
     header_nav = [
@@ -27,8 +27,13 @@ def predict_category(request):
 
             try:
                 model, vectorizer = load_model_and_vectorizer()
-                prediction = predict_url_category(cleaned_input, model, vectorizer)
-                return render(request, 'index.html', {'form': form, 'prediction': prediction})
+                prediction, safe = predict_url_category(cleaned_input, model, vectorizer)
+                if safe is True:
+                    comment = 'secure'
+                else:
+                    comment = 'malicious'
+                recent_searches.append({'url': url_input, 'prediction': comment})
+                return render(request, 'index.html', {'form': form, 'prediction': prediction, 'recent': recent_searches})
             except ValueError as e:
                 return HttpResponse(f"ValueError: {e}", status=500)
             except Exception as e:
@@ -73,4 +78,3 @@ def blog(request):
     
     ]
     return render(request, 'blog.html', {'header_nav': header_nav})
-

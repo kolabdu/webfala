@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+/* Basic styling for the navigation menu */
+/* styles.css */
+.nav-menu {
+  position: absolute;
+  top: -1000px;
+  left: 0;
+  background-color: #E63946; 
+  color: white;
+  width: 100%;
+  transition: top 0.3s ease; 
+  padding: 1.5rem;
+}
+
+.nav-menu.active {
+  top: 4rem; /* Adjust based on your design */
+}
+
+.nav-menu a {
+  display: block;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  color: white;
+}
+
+.nav-menu a:hover {
+  background-color: #333; /* Darker background on hover */
+}
+@tailwind utilities;

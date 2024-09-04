@@ -55,8 +55,8 @@ def predict_url_category(url, model,vectorizer):
     proba = model.predict_proba(vectorizer.transform(url))
     logger.debug(f'{prediction} url:{url}')
     if prediction == 'good':
-        return f'The URL is safe with {proba.max().round(2)*100} % confidence'
+        return f'The URL is safe with {proba.max().round(2)*100} % confidence', True
         logger.debug('the url is safe')
     else:
-        return f"URL APPEARS TO BE MALICIOUS with {proba.max().round(2)*100} % confidence"
+        return f"URL APPEARS TO BE MALICIOUS with {proba.max().round(2)*100} % confidence", False
         logger.debug('the url is malicious')

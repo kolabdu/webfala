@@ -59,6 +59,16 @@
         <h2>Prediction: {{ prediction }}</h2>
         {% endif %} 
 
+        {% if recent %}
+          <div>
+            <ul>
+              {% for item in recent%}
+                <li>{{ item.prediction }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
         </div>
       </div>
       <div class="flex flex-col gap-12">
