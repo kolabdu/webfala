@@ -1,4 +1,13 @@
 import pickle
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler('webfala.log')
+formatter = logging.Formatter('%(name)s %(levelname)s %(asctime)-15s: %(message)s')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+logger.propagate = False
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 #from . import vectorizer_rename as vector
@@ -44,7 +53,10 @@ def predict_url_category(url, model,vectorizer):
        
     prediction = model.predict(vectorizer.transform(url))
     proba = model.predict_proba(vectorizer.transform(url))
+    logger.debug(f'{prediction} url:{url}')
     if prediction == 'good':
         return f'The URL is safe with {proba.max().round(2)*100} % confidence'
+        logger.debug('the url is safe')
     else:
         return f"URL APPEARS TO BE MALICIOUS with {proba.max().round(2)*100} % confidence"
+        logger.debug('the url is malicious')

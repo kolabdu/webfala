@@ -10,9 +10,6 @@ class MyForm(forms.Form):
                 'placeholder': 'Please paste your link here', 
                 'class':"h-full pt-3 pl-3 pr-6 md:pr-32 outline-none w-full border-2 border-light rounded-md resize-none"
 
-
-                
-
             }
         ),
         required=False,  

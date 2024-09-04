@@ -22,8 +22,8 @@ def predict_category(request):
     if request.method == 'POST':
         form = MyForm(request.POST)
         if form.is_valid():
-            # user_input = form.cleaned_data['url_input']
-            cleaned_input = [clean_url('form')]
+            url_input = form.cleaned_data.get('url_input')
+            cleaned_input = [clean_url(str(url_input))]
 
             try:
                 model, vectorizer = load_model_and_vectorizer()
