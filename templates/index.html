@@ -61,14 +61,17 @@
         
         {% if recent %}
           <div>
-            <ul>
+            <h2 class="text-4xl text-center  text-[#1B263B] mt-12 ">Recent Searches</h2>
+            
+              <ul>
               {% for item in recent%}
-                <li>
+                <li class="flex justify-between">
                   <span>{{ item.url }}</span>
                   <span>{{ item.prediction }}</span>
                 </li>
               {% endfor %}
-            </ul>
+              </ul>
+    
           </div>
         {% endif %}
         </div>
