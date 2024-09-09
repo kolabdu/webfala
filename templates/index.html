@@ -58,17 +58,19 @@
         {% if prediction %}
         <h2>Prediction: {{ prediction }}</h2>
         {% endif %} 
-
+        
         {% if recent %}
           <div>
             <ul>
               {% for item in recent%}
-                <li>{{ item.prediction }}</li>
+                <li>
+                  <span>{{ item.url }}</span>
+                  <span>{{ item.prediction }}</span>
+                </li>
               {% endfor %}
             </ul>
           </div>
         {% endif %}
-
         </div>
       </div>
       <div class="flex flex-col gap-12">
@@ -84,3 +86,4 @@
     </main>
   </body>
 </html>
+
