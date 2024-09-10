@@ -27,4 +27,4 @@ webencodings==0.5.1
 websocket-client
 win-inet-pton
 zipp
-whitenoise-6.7.0
+whitenoise
