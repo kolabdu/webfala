@@ -29,4 +29,3 @@ win-inet-pton
 zipp
 whitenoise
 django-recaptcha
-requests
