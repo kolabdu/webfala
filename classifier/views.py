@@ -7,6 +7,7 @@ from .utils import clean_url, load_model_and_vectorizer, predict_url_category
 recent_searches = []
 
 def index(request):
+    recent_searches = request.session.get('recent_searches', [])
     prediction = request.session.pop('prediction', None) 
     header_nav = [
         {'name': 'Home', 'path': '/'},
@@ -37,13 +38,16 @@ def predict_category(request):
                     comment = 'secure'
                 else:
                     comment = 'malicious'
+                recent_searches = request.session.get('recent_searches', [])
                 recent_searches.append({'url': url_input, 'prediction': comment})
+                request.session['recent_searches'] = recent_searches
                 request.session['prediction'] = prediction
                 return redirect('index')
             except ValueError as e:
                 return HttpResponse(f"ValueError: {e}", status=500)
             except Exception as e:
                 return HttpResponse(f"An error occurred: {e}", status=500)
+        return redirect('index')
     
     form = MyForm()
     return render(request, 'index.html', {'form': form})
