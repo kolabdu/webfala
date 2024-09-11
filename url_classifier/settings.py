@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'classifier',
+    'django_recaptcha',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+RECAPTCHA_PUBLIC_KEY = '6LcISD4qAAAAAE5f_dBjRZBBQALZX-ES_2015pHn'
+RECAPTCHA_PRIVATE_KEY = '6LcpPj4qAAAAAGLEym5u2UMzQ-8Xr6J1sJKl5SKX'
+RECAPTCHA_USE_SSL = True

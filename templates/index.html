@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <link rel="stylesheet" href="{% static 'src/output.css' %}" />
     <title>Document</title>
   </head>
@@ -40,41 +41,43 @@
           <form method="POST"  action="/predict/" class="flex flex-col justify-center items-center">
           {% csrf_token %} 
           {{ form.url_input }}
-          <!-- <textarea 
-            id="url_input" 
-            name="url_input"
-            cols="100"
-            rows="5"
-            placeholder="Please paste your link here"
-            class="h-full pt-3 pl-3 pr-6 md:pr-32 outline-none w-full border-2 border-light rounded-md resize-none"
-        ></textarea> -->
-          <button
-            class="bg-[#1B263B] text-white h-14 w-40 px-6 mt-4 rounded-md"
-          >
-            Check Now
-          </button>
-          
+
+            <div class="g-recaptcha"
+              id="captcha"
+              data-sitekey="{{ RECAPTCHA_PUBLIC_KEY }}"
+              data-callback="onRecaptchaSuccess"
+              >
+            </div>
+            <button
+              class="bg-[#1B263B] text-white h-14 w-40 px-6 mt-4 rounded-md"
+              id='submitBtn'
+              style="display: none;"
+            >
+              Check Now
+            </button>
         </form>
+
         {% if prediction %}
-        <h2>Prediction: {{ prediction }} kjjjjjj</h2>
+        <h2 id="prediction-message">Prediction: {{ prediction }}</h2>
         {% endif %} 
         
-        {% if recent %}
-          <div>
-            <h2 class="text-4xl text-center  text-[#1B263B] mt-12 ">Recent Searches</h2>
-            
-              <ul>
-              {% for item in recent%}
-                <li class="flex justify-between">
-                  <span>{{ item.url }}</span>
-                  <span>{{ item.prediction }}</span>
-                </li>
-              {% endfor %}
-              </ul>
-    
-          </div>
-        {% endif %}
         </div>
+
+        {% if search_list %}
+        <div>
+          <h2 class="text-4xl text-center  text-[#1B263B] mt-12 ">Recent Searches</h2>
+          
+            <ul>
+            {% for item in search_list%}
+              <li class="flex justify-between">
+                <span>{{ item.url }}</span>
+                <span>{{ item.prediction }}</span>
+              </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
       </div>
       <div class="flex flex-col gap-12">
         <h1
@@ -87,6 +90,22 @@
     </div>
     {% include 'footer.html' %}
     </main>
+    <script>
+      function onRecaptchaSuccess() {
+        document.getElementById('submitBtn').style.display = 'block';
+        document.getElementById('captcha').style.display = 'none';
+      }
+
+      document.addEventListener('DOMContentLoaded', (event) => {
+            // If there's a prediction message
+            const predictionElement = document.getElementById('prediction-message');
+            if (predictionElement) {
+                // Hide the message after 15 seconds (10000 milliseconds)
+                setTimeout(() => {
+                    predictionElement.style.display = 'none';
+                }, 10000);  // Change the time here as needed
+            }
+        });
+  </script>
   </body>
 </html>
-

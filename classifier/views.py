@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.conf import settings
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import MyForm
 from .utils import clean_url, load_model_and_vectorizer, predict_url_category
@@ -6,6 +7,7 @@ from .utils import clean_url, load_model_and_vectorizer, predict_url_category
 recent_searches = []
 
 def index(request):
+    prediction = request.session.pop('prediction', None) 
     header_nav = [
         {'name': 'Home', 'path': '/'},
         {'name': 'About ', 'path': '/about/'},
@@ -15,6 +17,9 @@ def index(request):
     context = {
         'form': MyForm(),
         'header_nav': header_nav,
+        'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY,
+        'search_list': recent_searches,
+        'prediction': prediction
     }
     return render(request, 'index.html', context)
 
@@ -33,7 +38,8 @@ def predict_category(request):
                 else:
                     comment = 'malicious'
                 recent_searches.append({'url': url_input, 'prediction': comment})
-                return render(request, 'index.html', {'form': form, 'prediction': prediction, 'recent': recent_searches})
+                request.session['prediction'] = prediction
+                return redirect('index')
             except ValueError as e:
                 return HttpResponse(f"ValueError: {e}", status=500)
             except Exception as e:

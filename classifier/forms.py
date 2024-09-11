@@ -1,7 +1,8 @@
 from django import forms
+from django_recaptcha.fields import ReCaptchaField
 
 class MyForm(forms.Form):
-    url_input = forms.CharField(
+    url_input = forms.CharField( 
         widget=forms.Textarea(
             attrs={
                 'id': 'url_input',
@@ -12,5 +13,6 @@ class MyForm(forms.Form):
 
             }
         ),
-        required=False,  
+        required=True,  
     )
+    # captcha = ReCaptchaField()
