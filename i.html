@@ -58,7 +58,7 @@
         </form>
 
         {% if prediction %}
-        <h2>Prediction: {{ prediction }}</h2>
+        <h2 id="prediction-message">Prediction: {{ prediction }}</h2>
         {% endif %} 
         
         </div>
@@ -95,7 +95,17 @@
         document.getElementById('submitBtn').style.display = 'block';
         document.getElementById('captcha').style.display = 'none';
       }
-      
+
+      document.addEventListener('DOMContentLoaded', (event) => {
+            // If there's a prediction message
+            const predictionElement = document.getElementById('prediction-message');
+            if (predictionElement) {
+                // Hide the message after 15 seconds (10000 milliseconds)
+                setTimeout(() => {
+                    predictionElement.style.display = 'none';
+                }, 10000);  // Change the time here as needed
+            }
+        });
   </script>
   </body>
 </html>
