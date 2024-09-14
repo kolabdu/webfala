@@ -23,8 +23,8 @@ def index(request):
     return render(request, 'index.html', context)
 
 def predict_category(request):
-    close_old_connections()
     if request.method == 'POST':
+        print(request.POST) 
         form = MyForm(request.POST)
         if form.is_valid():
             url_input = form.cleaned_data.get('url_input')
@@ -33,11 +33,14 @@ def predict_category(request):
             try:
                 model, vectorizer = load_model_and_vectorizer()
                 prediction, safe = predict_url_category(cleaned_input, model, vectorizer)
-                if safe is True:
-                    comment = 'secure'
-                else:
-                    comment = 'malicious'
-                recent_searches.append({'url': url_input, 'prediction': comment})
+                
+                if 'recent_searches' not in request.session:
+                    request.session['recent_searches'] = []
+                
+                recent_searches = request.session['recent_searches']
+                recent_searches.append({'url': url_input, 'prediction': 'secure' if safe else 'malicious'})
+                recent_searches = request.session['recent_searches']
+                
                 request.session['prediction'] = prediction
                 return redirect('index')
             except ValueError as e:
