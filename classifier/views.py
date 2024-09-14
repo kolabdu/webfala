@@ -24,7 +24,6 @@ def index(request):
 
 def predict_category(request):
     if request.method == 'POST':
-        print(request.POST) 
         form = MyForm(request.POST)
         if form.is_valid():
             url_input = form.cleaned_data.get('url_input')
@@ -39,9 +38,8 @@ def predict_category(request):
                 
                 recent_searches = request.session['recent_searches']
                 recent_searches.append({'url': url_input, 'prediction': 'secure' if safe else 'malicious'})
-                recent_searches = request.session['recent_searches']
-                
-                request.session['prediction'] = prediction
+
+                # request.session['prediction'] = prediction
                 return redirect('index')
             except ValueError as e:
                 return HttpResponse(f"ValueError: {e}", status=400)
