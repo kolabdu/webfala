@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.db import close_old_connections
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import MyForm
@@ -22,6 +23,7 @@ def index(request):
     return render(request, 'index.html', context)
 
 def predict_category(request):
+    close_old_connections()
     if request.method == 'POST':
         form = MyForm(request.POST)
         if form.is_valid():
