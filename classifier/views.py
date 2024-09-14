@@ -8,6 +8,8 @@ from .utils import clean_url, load_model_and_vectorizer, predict_url_category
 recent_searches = []
 
 def index(request):
+    recent_searches = request.session.get('recent_searches', [])
+    prediction = request.session.get('prediction', None)
     header_nav = [
         {'name': 'Home', 'path': '/'},
         {'name': 'About ', 'path': '/about/'},
@@ -18,7 +20,8 @@ def index(request):
         'form': MyForm(),
         'header_nav': header_nav,
         'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY,
-        'search_list': recent_searches
+        'search_list': recent_searches,
+        'prediction': prediction
     }
     return render(request, 'index.html', context)
 
@@ -33,6 +36,13 @@ def predict_category(request):
                 model, vectorizer = load_model_and_vectorizer()
                 prediction, safe = predict_url_category(cleaned_input, model, vectorizer)
                 
+                recent_searches = request.session.get('recent_searches', [])
+                recent_searches.append({'url': url_input, 'prediction': 'secure' if safe else 'malicious'})
+                request.session['recent_searches'] = recent_searches[-10:]  # Keep last 10 searches
+
+                request.session['prediction'] = prediction
+
+                return redirect('index')
                 # if 'recent_searches' not in request.session:
                 #     request.session['recent_searches'] = []
                 

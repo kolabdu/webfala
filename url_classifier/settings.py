@@ -81,10 +81,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-        'OPTIONS': {
-            'timeout': 20,  # Timeout for handling long-running transactions
-            'check_same_thread': False,  # Disable SQLite's thread check
-        },
     }
 }
 
@@ -138,5 +134,7 @@ RECAPTCHA_PUBLIC_KEY = '6LcISD4qAAAAAE5f_dBjRZBBQALZX-ES_2015pHn'
 RECAPTCHA_PRIVATE_KEY = '6LcpPj4qAAAAAGLEym5u2UMzQ-8Xr6J1sJKl5SKX'
 RECAPTCHA_USE_SSL = True
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 SESSION_COOKIE_NAME = 'webfala'
+SESSION_COOKIE_AGE = 1209600  # 2 weeks
+SESSION_COOKIE_HTTPONLY = True
