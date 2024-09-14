@@ -39,9 +39,9 @@ def predict_category(request):
                 request.session['prediction'] = prediction
                 return redirect('index')
             except ValueError as e:
-                return HttpResponse(f"ValueError: {e}", status=500)
+                return HttpResponse(f"ValueError: {e}", status=400)
             except Exception as e:
-                return HttpResponse(f"An error occurred: {e}", status=500)
+                return HttpResponse(f"An error occurred: {e}", status=400)
     
     form = MyForm()
     return render(request, 'index.html', {'form': form})
