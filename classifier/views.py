@@ -33,11 +33,11 @@ def predict_category(request):
                 model, vectorizer = load_model_and_vectorizer()
                 prediction, safe = predict_url_category(cleaned_input, model, vectorizer)
                 
-                if 'recent_searches' not in request.session:
-                    request.session['recent_searches'] = []
+                # if 'recent_searches' not in request.session:
+                #     request.session['recent_searches'] = []
                 
-                recent_searches = request.session['recent_searches']
-                recent_searches.append({'url': url_input, 'prediction': 'secure' if safe else 'malicious'})
+                # recent_searches = request.session['recent_searches']
+                # recent_searches.append({'url': url_input, 'prediction': 'secure' if safe else 'malicious'})
 
                 # request.session['prediction'] = prediction
                 return redirect('index')
