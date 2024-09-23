@@ -33,9 +33,9 @@ RECAPTCHA_PRIVATE_KEY = 'your-private-key'
             Stay Safe Online with AI – Instantly Detect Phishing Links
           </h1>
           <p
-            class="text-[#424242] w-full md:flex md:w-[800px] my-10 items-center justify-center"
+            class="text-[#424242] text-xl w-full md:flex md:w-[800px] my-10 items-center justify-center"
           >
-            Tagline: Protect Yourself from Cyber Threats with AI-Powered
+            Protect Yourself from Cyber Threats with AI-Powered
             Security
           </p>
           <div class="flex flex-col justify-center items-center">
@@ -45,8 +45,8 @@ RECAPTCHA_PRIVATE_KEY = 'your-private-key'
               class="flex flex-col justify-center items-center"
             >
               {% csrf_token %} {{ form.url_input }}
-              <div class="flex gap-4  mr-80 mt-12">
-                <input type="checkbox" name="" id="" class="mt-4"/>
+              <div class="flex gap-4 justify-center items-center mt-8">
+                <input type="checkbox" name="" id="" />
                 <span class="text-base"
                   >By submitting a URL, you agree to our Terms of Service and
                   Privacy Policy.<br/> Your URL submission may be shared with the
