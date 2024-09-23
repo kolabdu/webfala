@@ -1,24 +1,40 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     {% load static %}
     <link rel="stylesheet" href="{% static 'src/output.css' %}" />
 
     <title>Document</title>
-</head>
-<body>
-   <main>
-       {% include 'nav.html' %}
-       <div>
-
-       </div>
-       {% include 'footer.html' %}
-
-   </main> 
-</body>
+  </head>
+  <body>
+    <main>
+      {% include 'nav.html' %}
+      <div>
+        <div class="flex flex-col justify-center items-center gap-10">
+          <h1 class="text-5xl">About Us</h1>
+          <p class="mx-auto text-center">
+            LinkGuard is an innovative platform developed by Webfala Digital
+            Skills for All Initiative, dedicated to providing a secure digital
+            environment by detecting phishing and scam URLs using advanced
+            Artificial Intelligence (AI) technology. Our mission is to empower
+            individuals, businesses, and organizations to navigate the internet
+            confidently by offering state-of-the-art tools that safeguard them
+            from online threats. In today’s digital age, cyber threats like
+            phishing and scam attacks have become increasingly sophisticated. At
+            LinkGuard, we leverage AI's power to stay ahead of these threats,
+            offering real-time protection and insights to our users. We are
+            committed to enhancing online safety, promoting digital literacy,
+            and ensuring that every internet user can enjoy a secure browsing
+            experience.
+          </p>
+        </div>
+      </div>
+      {% include 'footer.html' %}
+    </main>
+  </body>
 </html>

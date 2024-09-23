@@ -13,7 +13,7 @@ def index(request):
     header_nav = [
         {'name': 'Home', 'path': '/'},
         {'name': 'About ', 'path': '/about/'},
-        {'name': 'Blog', 'path': '/blog/'},
+        {'name': 'Blog', 'path': '/'},
     
     ]
     context = {
@@ -78,7 +78,7 @@ def about(request):
     header_nav = [
         {'name': 'Home', 'path': '/'},
         {'name': 'About ', 'path': '/about/'},
-        {'name': 'Blog', 'path': '/blog/'},
+        {'name': 'Blog', 'path': '/'},
         
     ]
     return render(request, 'about.html', {'header_nav': header_nav})
@@ -91,7 +91,7 @@ def blog(request):
     header_nav = [
         {'name': 'Home', 'path': '/'},
         {'name': 'About ', 'path': '/about/'},
-        {'name': 'Blog', 'path': '/blog/'},
+        {'name': 'Blog', 'path': '/'},
     
     ]
     return render(request, 'blog.html', {'header_nav': header_nav})
