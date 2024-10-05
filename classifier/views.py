@@ -1,97 +1,77 @@
-from django.conf import settings
-from django.db import close_old_connections
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .forms import MyForm
-from .utils import clean_url, load_model_and_vectorizer, predict_url_category
+import requests
+from django.shortcuts import render
+from django.http import JsonResponse
+from .utils import clean_url
 
-recent_searches = []
 
 def index(request):
-    recent_searches = request.session.get('recent_searches', [])
-    prediction = request.session.get('prediction', None)
     header_nav = [
         {'name': 'Home', 'path': '/'},
-        {'name': 'About ', 'path': '/about/'},
-        {'name': 'Blog', 'path': '/'},
-    
+        {'name': 'About', 'path': '/about/'},
+        {'name': 'Blog', 'path': '/blog'},
     ]
     context = {
-        'form': MyForm(),
         'header_nav': header_nav,
-        'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY,
-        'search_list': recent_searches,
-        'prediction': prediction
+    
     }
     return render(request, 'index.html', context)
 
-def predict_category(request):
+    
+def predict_category_api(request):
     if request.method == 'POST':
-        form = MyForm(request.POST)
-        if form.is_valid():
-            url_input = form.cleaned_data.get('url_input')
-            cleaned_input = [clean_url(str(url_input))]
+        url_input = request.POST.get('url')
+        if url_input:
+            cleaned_input = clean_url("url_input")  
+
+            # Data to send to the external API
+            data = {
+                "url": cleaned_input
+            }
 
             try:
-                model, vectorizer = load_model_and_vectorizer()
-                prediction, safe = predict_url_category(cleaned_input, model, vectorizer)
-                
-                recent_searches = request.session.get('recent_searches', [])
-                recent_searches.append({'url': url_input, 'prediction': 'secure' if safe else 'malicious'})
-                request.session['recent_searches'] = recent_searches[-10:]  # Keep last 10 searches
+                # Make the request to the external API
+                external_api_url = 'https://phishing-urls-pred-api.onrender.com/predict'
+                response = requests.post(external_api_url, json=data)
 
-                request.session['prediction'] = prediction
+                # Check if the request was successful
+                if response.status_code == 200:
+                    result = response.json()
 
-                return redirect('index')
-                # if 'recent_searches' not in request.session:
-                #     request.session['recent_searches'] = []
-                
-                # recent_searches = request.session['recent_searches']
-                # recent_searches.append({'url': url_input, 'prediction': 'secure' if safe else 'malicious'})
+                    # Return the prediction and confidence score from the external API
+                    return JsonResponse({
+                        'prediction': result.get('prediction'),
+                        'confidence_score': result.get('confidence_score')
+                    })
+                else:
+                    return JsonResponse({'error': 'Failed to get a valid response from the external API'}, status=500)
 
-                # request.session['prediction'] = prediction
-                return redirect('index')
-            except ValueError as e:
-                return HttpResponse(f"ValueError: {e}", status=400)
-            except Exception as e:
-                return HttpResponse(f"An error occurred: {e}", status=400)
-    
-    form = MyForm()
-    return render(request, 'index.html', {'form': form})
+            except requests.RequestException as e:
+                return JsonResponse({'error': str(e)}, status=500)
 
-# def predict_category(request):
-#     if request.method == 'POST':
-#         form = MyForm(request.POST)
-#         # cleaned_input = [tokenize(user_input)]
-#         cleaned_input = [clean_url('form')]
-
-#         model, vectorizer = load_model_and_vectorizer()
-#         try:
-#             form = predict_url_category(cleaned_input, model, vectorizer)
-#         except Exception as e:
-#             return HttpResponse("An error occurred: {}".format(e), status=500)
-#         return render(request, 'index.html', {'form': form})
-#     return render(request, 'index.html')
-
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 def about(request):
     header_nav = [
         {'name': 'Home', 'path': '/'},
-        {'name': 'About ', 'path': '/about/'},
+        {'name': 'About', 'path': '/about/'},
         {'name': 'Blog', 'path': '/'},
-        
     ]
     return render(request, 'about.html', {'header_nav': header_nav})
 
-
 def contact(request):
-    return render(request, 'contact.html')
+    header_nav = [
+        {'name': 'Home', 'path': '/'},
+        {'name': 'About', 'path': '/about/'},
+        {'name': 'Blog', 'path': '/blog/'},
+        {'name': 'Contact', 'path': '/contact/'},
+    ]
+
+    return render(request, 'contact.html',{'header_nav': header_nav} )
 
 def blog(request):
     header_nav = [
         {'name': 'Home', 'path': '/'},
-        {'name': 'About ', 'path': '/about/'},
+        {'name': 'About', 'path': '/about/'},
         {'name': 'Blog', 'path': '/'},
-    
     ]
     return render(request, 'blog.html', {'header_nav': header_nav})
