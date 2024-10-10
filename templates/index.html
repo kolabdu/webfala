@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="{% static 'js/prediction.js' %}"></script>
+
     <link rel="stylesheet" href="{% static 'src/output.css' %}" />
     <title>Document</title>
   </head>
@@ -44,29 +44,35 @@ RECAPTCHA_PRIVATE_KEY = 'your-private-key'
               action="/predict/"
               class="flex flex-col justify-center items-center"
             >
-              {% csrf_token %} {{ form.as_p }}
+              {% csrf_token %}
+
+              
+              {{ form.url_input }}
+
               <div class="flex gap-4 justify-center items-center mt-8">
                 <input type="checkbox" name="" id="" />
-                <span class="text-base"
-                  >By submitting a URL, you agree to our Terms of Service and
+                <span class="text-base">
+                  By submitting a URL, you agree to our Terms of Service and
                   Privacy Policy.<br />
                   Your URL submission may be shared with the security community
                   to enhance threat detection.<br />
                   Please avoid submitting any personal information, as we are
-                  not responsible for the contents of your submission</span
-                >
+                  not responsible for the contents of your submission.
+                </span>
               </div>
-              {{ form.url_input }}
+
+              
               <div
                 class="g-recaptcha items-start my-10 justify-start flex"
                 id="captcha"
-                data-sitekey="{{ RECAPTCHA_PUBLIC_KEY }}"
-                data-callback="onRecaptchaSuccess"
-              ></div>
+              >
+                {{ form.captcha }}
+                
+              </div>
+
               <button
                 class="bg-[#1B263B] text-white h-14 w-40 px-6 mt-4 rounded-md"
                 id="submitBtn"
-                style="display: none"
               >
                 Check Now
               </button>

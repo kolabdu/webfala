@@ -2,17 +2,19 @@ import requests
 from django.shortcuts import render
 from django.http import JsonResponse
 from .utils import clean_url
-
+from .forms import MyForm
+from django.conf import settings
 
 def index(request):
-    header_nav = [
-        {'name': 'Home', 'path': '/'},
-        {'name': 'About', 'path': '/about/'},
-        {'name': 'Blog', 'path': '/blog'},
-    ]
+    form = MyForm()  
     context = {
-        'header_nav': header_nav,
-    
+        'form': form,
+        'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY,
+        'header_nav': [
+            {'name': 'Home', 'path': '/'},
+            {'name': 'About', 'path': '/about/'},
+            {'name': 'Blog', 'path': '/blog'},
+        ]
     }
     return render(request, 'index.html', context)
 
